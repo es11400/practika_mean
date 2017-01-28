@@ -4,6 +4,7 @@
 "use strict";
 
 module.exports = {
+    tags: ['work', 'lifestyle', 'motor', 'mobile'],     //TAGS Disponibles
     numberOfAds: 25,// El máximo de imágenes a descargar del API de UnSplash es de 50, si numberOfAds es mayor el resto de imágenes seran no_image.png
     minprice: 1,    // minimo precio para ejemplos
     maxprice: 1000.00,  // máximo precio para ejemplos
@@ -12,8 +13,7 @@ module.exports = {
             'Xiaomi miPad', 'iPad 3', 'iPhone 6', 'BlackBerry Bold', 'Motorola V',
             'Ducatti', 'Ferrari 360', 'BMW GS1200', 'Vespa 125cc', 'Mercedes 320',
             'Astrologer', 'Astronaut', 'Developer', 'Designer', 'Policeman'],
-        sales: [true, false],
-        tags: ['work', 'lifestyle', 'motor', 'mobile']
+        sales: [true, false]
     },
     // Extraemos de la api de unplash imagenes de ejemplo.
     // ESTA LIMITADA A 50 PETICIONES POR HORA, si no se puede descarga se asigna al anuncio no_image.png que esta en ./public/images/

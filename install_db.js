@@ -77,7 +77,7 @@ function insertAd(db, photoOptions) {
                         sale: config.adSamples.sales[Math.floor(Math.random() * 2)],
                         price: (Math.random() * (config.maxprice - config.minprice) + config.minprice).toFixed(2),
                         photo: img,
-                        tags: [config.adSamples.tags[Math.floor(Math.random() * 4)]]
+                        tags: [config.tags[Math.floor(Math.random() * 4)]]
                     };
                     db.collection('Ad').insert(ad,function (err) {
                         if (err) {
