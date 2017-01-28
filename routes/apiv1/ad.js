@@ -10,9 +10,9 @@ const mongoose = require('mongoose');
 const Ad = mongoose.model('Ad');
 const myErrors = require('./../../lib/myErrors');
 
-//const jwtauth = require('../../lib/jwtAuth');
+const jwtauth = require('../../lib/jwtAuth');
 
-//router.use(jwtauth());
+router.use(jwtauth());
 
 router.get('/', function (req, res, next) {
     const name = req.query.name;
@@ -38,8 +38,18 @@ router.get('/', function (req, res, next) {
         filter.sale = sale;
     }
 
-    if (tag){
+    // if (tag){
+    //     filter.tags = tag;
+    // }
+
+    // Corregimos error al buscar si pertenece a mas de un TAG
+    if (typeof tag === 'string') {
+
         filter.tags = tag;
+
+    }else if (typeof tag === 'object') {
+        var $all = tag;
+        filter.tags = {$all};
     }
 
     if (price) {
