@@ -10,9 +10,9 @@ const router = express.Router();
 const myErrors = require('./../../lib/myErrors');
 const localConfig = require('./../../config');
 
-// const jwtauth = require('../../lib/jwtAuth');
-//
-// router.use(jwtauth());
+const jwtauth = require('../../lib/jwtAuth');
+
+router.use(jwtauth());
 
 router.get('/', function (req, res, next) {
 

@@ -14,5 +14,7 @@
 	"Password is too short, 8 characters minimun": "La contraseña es demasiado corta, mínimo 8 caracteres",
 	"This library (validator.js) validates strings only": "La libreria validators.js solo valida cadenas",
 	"Ooops!!!, something is wrong...": "Ooops!!!, algo esta mal...",
-	"Password or email is incorrect": "Email o contraseña erroneos"
+	"Password or email is incorrect": "Email o contraseña erroneos",
+	"E11000 duplicate key error collection: nodepop.User index: email_1 dup key: { : \"11400.es@gmail.com\" }": "Error el correo ya existe, clave duplicada: { : \"11400.es@gmail.com\" }",
+	"Error el correo ya existe, clave duplicada: { : \"11400.es@gmail.com\" }": "Error el correo ya existe, clave duplicada: { : \"11400.es@gmail.com\" }"
 }
