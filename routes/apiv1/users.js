@@ -49,16 +49,23 @@ router.post('/signup', function (req, res, next) {
 
     if (errorText) {
         //res.json({success: false, error: __(errorText)});
-        next(new myErrors(errorText, 500));
+        next(new myErrors(errorText, 401));
         return
     }
 
     pwdHash.hash(password,function (err, salt, hash) {
         if (err) {
-            next(new myErrors(__(err.message), 430, err));
+            next(new myErrors(__(err.message), err.statusCode, err));
             return
         }
         const user = new User({name: userName, email: email, password: hash, salt: salt});
+
+        //Comprobamos que el usuario es correcto.
+        try {
+            user.validateSync();
+        }catch (err) {
+            next(new myErrors(__(err.message), 401, err));
+        }
 
         user.save(function (err, newUser) {
             if (err) {
