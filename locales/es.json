@@ -1,0 +1,18 @@
+{
+	"Not Found": "No encontrado",
+	"No encontrado": "No encontrado",
+	"user is not defined": "El usuario no esta deifinido",
+	"err is not defined": "Error no definido",
+	"User is empty": "El usuario esta vacío",
+	"Cannot read property 'constructor' of undefined": "No puedo leer la propiedad del constructor",
+	"token is not defined": "Token no definido",
+	"Email is empty": "Email esta vacío",
+	"Can't set headers after they are sent.": "No se pueden cambiar las cabeceras despues de ser enviadas",
+	"Password is empty": "Password esta vacía",
+	"": "",
+	"Insert correct email": "Inserte un email correcto",
+	"Password is too short, 8 characters minimun": "La contraseña es demasiado corta, mínimo 8 caracteres",
+	"This library (validator.js) validates strings only": "La libreria validators.js solo valida cadenas",
+	"Ooops!!!, something is wrong...": "Ooops!!!, algo esta mal...",
+	"Password or email is incorrect": "Email o contraseña erroneos"
+}

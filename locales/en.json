@@ -1,0 +1,18 @@
+{
+	"Not Found": "Not Found",
+	"No encontrado": "No encontrado",
+	"user is not defined": "user is not defined",
+	"err is not defined": "err is not defined",
+	"User is empty": "User is empty",
+	"Cannot read property 'constructor' of undefined": "Cannot read property 'constructor' of undefined",
+	"token is not defined": "token is not defined",
+	"Email is empty": "Email is empty",
+	"Can't set headers after they are sent.": "Can't set headers after they are sent.",
+	"Password is empty": "Password is empty",
+	"": "",
+	"Insert correct email": "Insert correct email",
+	"Password is too short, 8 characters minimun": "Password is too short, 8 characters minimun",
+	"This library (validator.js) validates strings only": "This library (validator.js) validates strings only",
+	"Ooops!!!, something is wrong...": "Ooops!!!, something is wrong...",
+	"Password or email is incorrect": "Password or email is incorrect"
+}
