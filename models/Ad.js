@@ -5,15 +5,14 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const User = mongoose.model('User');
+
 
 const adSchema =  new Schema({
     name: { type: String, index: true },
     sale: Boolean,
     price: Number,
     photo: String,
-    tags: { type: [String], index: true },
-    user: { type: Schema.ObjectId, ref: "User" }
+    tags: { type: [String], index: true }
 });
 
 // ponemos un metodo al schema

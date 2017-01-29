@@ -7,14 +7,13 @@
 const express = require('express');
 const router = express.Router();
 
-const myErrors = require('./../../lib/myErrors');
 const localConfig = require('./../../config');
 
 const jwtauth = require('../../lib/jwtAuth');
 
 router.use(jwtauth());
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
 
     res.json({success: true, tags: localConfig.tags });
 

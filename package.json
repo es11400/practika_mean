@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "start": "DEBUG=generated:* PORT=3000 nodemon ./bin/www",
-    "installDB": "node install_db"
+    "installDB": "node install_db",
+    "eslint": "./node_modules/.bin/eslint ./ -o ./eslint_errors -f compact; exit 0"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -24,5 +25,8 @@
     "s-salt-pepper": "^2.1.0",
     "serve-favicon": "~2.3.0",
     "validator": "^6.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.14.1"
   }
 }

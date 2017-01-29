@@ -22,13 +22,13 @@ function dropDb(db) {
 // Promesa que descarga la imagen con image-downloader
 function downImage(img) {
     return new Promise(function (resolve, reject) {
-        //console.log(img);
+
         let imgName = img.substr(0, img.indexOf('?')).replace('https://images.unsplash.com/','');
         imgName = './public/images/' + imgName + '.jpg'
         var options = {
             url: img,
             dest: imgName,                  // Save to /path/to/dest/image.jpg
-            done: function(err, filename, image) {
+            done: function(err, filename) {
                 if (err) {
                     //throw err;
                     return reject('Error: ' + err);

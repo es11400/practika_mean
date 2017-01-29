@@ -78,7 +78,7 @@ router.get('/', function (req, res, next) {
     Ad.list(filter, limit, start, fields, sort, function (err, docs) {
         if (err) {
             //res.json({success: false, error: err});
-            next(myErrors(__('Error al listar'), 430, err));
+            next(myErrors(__('Error al listar'), 430, err)); //eslint-disable-line no-undef
             return
         }
         res.json({success: true, data: docs});

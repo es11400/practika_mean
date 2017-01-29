@@ -26,26 +26,26 @@ pwdHash.configure({
 
 router.post('/signup', function (req, res, next) {
     // Obtenemos los datos de registro
-    const userName = req.body.username;
-    const email = req.body.email;
-    const password = req.body.password;
+    const userName = req.body.username || "";
+    const email = req.body.email || "";
+    const password = req.body.password || "";
     var errorText;
 
     if ( validator.isEmpty(userName)){
-        errorText = 'User is empty';
-    };
+        errorText = 'User is empty'
+    }
     if ( validator.isEmpty(email)){
-        errorText = 'Email is empty';
+        errorText = 'Email is empty'
     } else if ( !validator.isEmail(email)){
-        errorText = 'Insert correct email';
-    };
+        errorText = 'Insert correct email'
+    }
 
     if ( validator.isEmpty(password)){
-        errorText = 'Password is empty';
-    };
+        errorText = 'Password is empty'
+    }
     if ( !validator.isLength(password,{min:8, max: undefined})){
-        errorText = 'Password is too short, 8 characters minimun';
-    };
+        errorText = 'Password is too short, 8 characters minimun'
+    }
 
     if (errorText) {
         //res.json({success: false, error: __(errorText)});
@@ -55,7 +55,7 @@ router.post('/signup', function (req, res, next) {
 
     pwdHash.hash(password,function (err, salt, hash) {
         if (err) {
-            next(new myErrors(__(err.message), err.statusCode, err));
+            next(new myErrors(__(err.message), err.statusCode, err));//eslint-disable-line no-undef
             return
         }
         const user = new User({name: userName, email: email, password: hash, salt: salt});
@@ -64,12 +64,13 @@ router.post('/signup', function (req, res, next) {
         try {
             user.validateSync();
         }catch (err) {
-            next(new myErrors(__(err.message), 401, err));
+            next(new myErrors(__(err.message), 430, err));//eslint-disable-line no-undef
         }
 
         user.save(function (err, newUser) {
             if (err) {
-                next(new myErrors(__(err.message), 430, err));
+                //next(new myErrors(__(err.message), 430, err));//eslint-disable-line no-undef
+                next(err.message);
                 return
             }
             const token = jwt.sign({_id: newUser._id}, localConfig.jwt.secret, {expiresIn: localConfig.jwt.expiresIn});
@@ -87,6 +88,22 @@ router.post('/authenticate', function (req, res, next) {
 
     const email = req.body.email;
     const password = req.body.password;
+    let errorText;
+    if ( validator.isEmpty(password)){
+        errorText = 'Password is empty'
+    }
+    if ( !validator.isLength(password,{min:8, max: undefined})){
+        errorText = 'Password is too short, 8 characters minimun'
+    }
+    if ( validator.isEmpty(email)){
+        errorText = 'Email is empty'
+    } else if ( !validator.isEmail(email)){
+        errorText = 'Insert correct email'
+    }
+    if (errorText) {
+        next(new myErrors(errorText, 401));
+        return
+    }
     User.findOne({email: email }, function (err, userFind) {
        if (err){
            next(new myErrors(err, err.statusCode, err));

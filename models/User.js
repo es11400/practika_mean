@@ -13,4 +13,4 @@ const userSchema = new Schema({
     salt : String
 });
 
-const User = mongoose.model('User', userSchema, 'User');
+const User = mongoose.model('User', userSchema, 'User'); //eslint-disable-line no-unused-vars

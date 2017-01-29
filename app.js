@@ -1,7 +1,7 @@
 var express = require('express'),
     i18n = require("i18n");
 var path = require('path');
-var favicon = require('serve-favicon');
+//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -26,6 +26,7 @@ require('./models/User');
 require('./models/Ad');
 
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -40,7 +41,7 @@ app.use(i18n.init);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
-    console.log('Petición enviada...');
+    console.log('Petición enviada...'); //eslint-disable-line no-console
     next();
 });
 
@@ -51,16 +52,16 @@ app.use('/apiv1/tags', require('./routes/apiv1/tags'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    next(new myErrors(__('Not Found'), 404, null));
+    next(new myErrors(i18n.__('Not Found'), 404, null));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
 
     res.status(err.status || 500);
 
     if (req.originalUrl.indexOf('/api') === 0 ) { // llamada desde api respondemos JSON
-        return res.json({success: false, error: __(err.message)});
+        return res.json({success: false, error: i18n.__(err.message)});
     }
     // set locals, only providing error in development
     res.locals.message = err.message;
