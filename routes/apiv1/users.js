@@ -24,7 +24,7 @@ pwdHash.configure({
 });
 
 
-router.post('/signup', function (req, res, next) {
+router.post('/signup', function (req, res) {
     // Obtenemos los datos de registro
     const userName = req.body.username || "";
     const email = req.body.email || "";
@@ -48,15 +48,13 @@ router.post('/signup', function (req, res, next) {
     }
 
     if (errorText) {
-        //res.json({success: false, error: __(errorText)});
-        next(new myErrors(errorText, 401));
-        return
+        return myErrors.CustomError(res, errorText, 400);
+
     }
 
     pwdHash.hash(password,function (err, salt, hash) {
         if (err) {
-            next(new myErrors(__(err.message), err.statusCode, err));//eslint-disable-line no-undef
-            return
+            return myErrors.CustomError(res, err.message, err.statusCode);
         }
         const user = new User({name: userName, email: email, password: hash, salt: salt});
 
@@ -64,14 +62,13 @@ router.post('/signup', function (req, res, next) {
         try {
             user.validateSync();
         }catch (err) {
-            next(new myErrors(__(err.message), 430, err));//eslint-disable-line no-undef
+            return myErrors.CustomError(res, err.message, err.statusCode);
         }
 
         user.save(function (err, newUser) {
             if (err) {
-                //next(new myErrors(__(err.message), 430, err));//eslint-disable-line no-undef
-                next(err.message);
-                return
+                console.log(err);
+                return myErrors.CustomError(res, 'MongoBD : Internal server error', 500);
             }
             const token = jwt.sign({_id: newUser._id}, localConfig.jwt.secret, {expiresIn: localConfig.jwt.expiresIn});
 
@@ -84,15 +81,14 @@ router.post('/signup', function (req, res, next) {
 
 });
 
-router.post('/authenticate', function (req, res, next) {
+router.post('/authenticate', function (req, res) {
 
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = req.body.email || "";
+    const password = req.body.password || "";
     let errorText;
     if ( validator.isEmpty(password)){
         errorText = 'Password is empty'
-    }
-    if ( !validator.isLength(password,{min:8, max: undefined})){
+    } else if ( !validator.isLength(password,{min:8, max: undefined})){
         errorText = 'Password is too short, 8 characters minimun'
     }
     if ( validator.isEmpty(email)){
@@ -101,25 +97,22 @@ router.post('/authenticate', function (req, res, next) {
         errorText = 'Insert correct email'
     }
     if (errorText) {
-        next(new myErrors(errorText, 401));
-        return
+        return myErrors.CustomError(res, errorText, 400);
+
     }
     User.findOne({email: email }, function (err, userFind) {
        if (err){
-           next(new myErrors(err, err.statusCode, err));
-           return
+           return myErrors.CustomError(res, err.message, err.statusCode);
        }
        pwdHash.compare(password, userFind.salt, function (err, hash) {
            if (err){
-               next(new myErrors(err.status, err.statusCode, err));
-               return
+               return myErrors.CustomError(res, err.message, err.statusCode);
            }
            if (userFind.password === hash){
                const token = jwt.sign({ _id: userFind._id }, localConfig.jwt.secret, { expiresIn: localConfig.jwt.expiresIn});
                res.json({success: true, token: token});
            } else {
-               next(new myErrors('Password or email is incorrect', 500));
-               return
+               return myErrors.CustomError(res, 'Password or email is incorrect', 500);
            }
        })
     });

@@ -17,5 +17,5 @@
 	"Password or email is incorrect": "Password or email is incorrect",
 	"No token provided": "No token provided",
 	"Invalid token": "Invalid token",
-	"E11000 duplicate key error collection: nodepop.User index: email_1 dup key: { : \"11400.es@gmail.com\" }": "E11000 duplicate key error collection: nodepop.User index: email_1 dup key: { : \"11400.es@gmail.com\" }"
+	"No data avaliable": "No data avaliable"
 }

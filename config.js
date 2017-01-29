@@ -33,5 +33,6 @@ module.exports = {
     jwt: {
         secret: 'DesdeSanturce&Bilbado',
         expiresIn: '2 days'
-    }
+    },
+    languages: ['en', 'es']
 }
